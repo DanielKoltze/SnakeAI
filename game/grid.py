@@ -8,17 +8,14 @@ class Grid:
 
 
     def draw(self,win):
-        for row in self.cells:
-            for cell in row:
-                cell.draw(win)
+        for cell in self.cells:
+            cell.draw(win)
 
     def create_cells(self):
         x = MAP_WIDTH // CELL_SIZE
         y = MAP_HEIGHT // CELL_SIZE
         grid = []
         for i in range(x):
-            arr = []
             for j in range(y):
-                arr.append(Cell(i,j))
-            grid.append(arr)
+                grid.append(Cell(i,j))
         return grid

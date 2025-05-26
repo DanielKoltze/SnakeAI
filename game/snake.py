@@ -27,10 +27,9 @@ class Snake:
 
     def wall_collision(self,grid):
         first_part = self.parts[-1]
-        for row in grid:
-            for cell in row:
-                if cell.position == first_part:
-                    return False
+        for cell in grid:
+            if cell.position == first_part:
+                return False
         return True
     
     def snake_collision(self):
