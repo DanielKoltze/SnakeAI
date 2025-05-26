@@ -3,6 +3,7 @@ from settings import MAP_HEIGHT,MAP_WIDTH,FPS
 from grid import Grid
 from snake import Snake
 from direction import Direction
+from food import Food
 
 class Game:
     def __init__(self,ai_mode = False):
@@ -15,6 +16,7 @@ class Game:
         self.font = pygame.font.Font(None, 36)
         self.grid = Grid()
         self.snake = Snake((0,0),Direction.RIGHT)
+        self.food = [Food(self.snake,self.grid.cells)]
 
     def start_game(self):
         while self.run:
@@ -39,6 +41,13 @@ class Game:
 
                 
         self.snake.move()
+
+
+
+        if self.snake.eat(self.food):
+            self.snake.grow()
+            self.food.append(Food(self.snake,self.grid.cells))
+
         if self.snake.wall_collision(self.grid.cells) or self.snake.snake_collision():
             self.run = False
 
@@ -48,6 +57,9 @@ class Game:
         self.grid.draw(self.win)
 
         self.snake.draw(self.win)
+
+        for food in self.food:
+            food.draw(self.win)
        
         pygame.display.update()
 

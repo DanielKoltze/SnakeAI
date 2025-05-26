@@ -22,8 +22,19 @@ class Snake:
             return
         self.direction = direction
         
-    def grow(self):
-        pass
+    def grow(self) -> None:
+        last_part = self.parts[0]
+        opposite_direction = self.direction.opposite()
+        new_part = add_tuples(last_part,opposite_direction.value)
+        self.parts.insert(0,new_part)
+    
+    def eat(self,food) -> bool:
+        first_part = self.parts[-1]
+        for f in food:
+            if f.position == first_part:
+                food.remove(f)
+                return True
+        return False
 
     def wall_collision(self,grid):
         first_part = self.parts[-1]
