@@ -43,14 +43,13 @@ class Game:
                 
         self.snake.move()
 
+        if not self.ai_mode:
+            if self.snake.eat(self.food):
+                self.snake.grow()
+                self.food.append(Food(self.snake,self.grid.cells))
 
-
-        if self.snake.eat(self.food):
-            self.snake.grow()
-            self.food.append(Food(self.snake,self.grid.cells))
-
-        if self.snake.wall_collision(self.grid.cells) or self.snake.snake_collision():
-            self.run = False
+            if self.snake.wall_collision(self.grid.cells) or self.snake.snake_collision():
+                self.run = False
 
     def draw(self):
         self.win.fill((0, 0, 0))
@@ -64,5 +63,5 @@ class Game:
        
         pygame.display.update()
 
-game = Game()
-game.start_game()
+#game = Game()
+#game.start_game()
