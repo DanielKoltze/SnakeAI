@@ -10,7 +10,7 @@ class Game:
         pygame.init()
         self.win = pygame.display.set_mode((MAP_WIDTH, MAP_HEIGHT))
         self.clock = pygame.time.Clock()
-        #if not ai_mode:
+        self.ai_mode = ai_mode
         self.score = 0
         self.run = True
         self.font = pygame.font.Font(None, 36)
@@ -25,19 +25,20 @@ class Game:
 
     def update(self):
         self.clock.tick(FPS)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.run = False
+        if not self.ai_mode:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.run = False
 
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
-                    self.snake.change_direction(Direction.UP)
-                elif event.key == pygame.K_d:
-                    self.snake.change_direction(Direction.RIGHT)
-                elif event.key == pygame.K_s:
-                    self.snake.change_direction(Direction.DOWN)
-                elif event.key == pygame.K_a:
-                    self.snake.change_direction(Direction.LEFT)
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_w:
+                        self.snake.change_direction(Direction.UP)
+                    elif event.key == pygame.K_d:
+                        self.snake.change_direction(Direction.RIGHT)
+                    elif event.key == pygame.K_s:
+                        self.snake.change_direction(Direction.DOWN)
+                    elif event.key == pygame.K_a:
+                        self.snake.change_direction(Direction.LEFT)
 
                 
         self.snake.move()
